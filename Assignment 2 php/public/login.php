@@ -1,9 +1,9 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    header('Location: dashboard.php');
+    header('Location: ../admin/dashboard.php');
     exit();
 }
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             
-            header('Location: dashboard.php');
+            header('Location: ../admin/dashboard.php');
             exit();
         } else {
             $error = 'Invalid username or password.';
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="row justify-content-center">
@@ -65,11 +65,10 @@ include 'includes/header.php';
                 
                 <div class="text-center mt-3">
                     <p>Don't have an account? <a href="register.php">Register here</a></p>
-                    <small class="text-muted">Demo: admin / admin123</small>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

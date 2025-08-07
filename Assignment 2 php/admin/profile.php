@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 requireLogin();
 
 $error = '';
@@ -61,18 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $error = 'Image file is too large. Maximum size is 5MB.';
                     } else {
                         // Delete old image if exists
-                        if ($user['profile_image'] && file_exists('uploads/' . $user['profile_image'])) {
-                            unlink('uploads/' . $user['profile_image']);
+                        if ($user['profile_image'] && file_exists('../uploads/' . $user['profile_image'])) {
+                            unlink('../uploads/' . $user['profile_image']);
                         }
                         
                         // Create uploads directory if it doesn't exist
-                        if (!file_exists('uploads')) {
-                            mkdir('uploads', 0777, true);
+                        if (!file_exists('../uploads')) {
+                            mkdir('../uploads', 0777, true);
                         }
                         
                         $file_extension = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);
                         $image_name = 'profile_' . uniqid() . '.' . $file_extension;
-                        $upload_path = 'uploads/' . $image_name;
+                        $upload_path = '../uploads/' . $image_name;
                         
                         if (!move_uploaded_file($_FILES['profile_image']['tmp_name'], $upload_path)) {
                             $error = 'Failed to upload image. Please try again.';
@@ -82,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 // Handle image removal
                 if (isset($_POST['remove_image']) && $_POST['remove_image'] == '1') {
-                    if ($user['profile_image'] && file_exists('uploads/' . $user['profile_image'])) {
-                        unlink('uploads/' . $user['profile_image']);
+                    if ($user['profile_image'] && file_exists('../uploads/' . $user['profile_image'])) {
+                        unlink('../uploads/' . $user['profile_image']);
                     }
                     $image_name = null;
                 }
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="row justify-content-center">
@@ -131,7 +131,7 @@ include 'includes/header.php';
                     <div class="row">
                         <div class="col-md-4 text-center mb-4">
                             <?php if ($user['profile_image']): ?>
-                                <img src="uploads/<?php echo htmlspecialchars($user['profile_image']); ?>" 
+                                <img src="../uploads/<?php echo htmlspecialchars($user['profile_image']); ?>" 
                                      alt="Profile Image" class="profile-avatar mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remove_image" value="1" id="remove_image">
@@ -200,4 +200,4 @@ include 'includes/header.php';
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

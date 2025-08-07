@@ -3,7 +3,7 @@
 $host = 'sql313.infinityfree.com';
 $dbname = 'if0_39217339_crud_app';
 $username = 'if0_39217339';
-$password = 'n1cHbNUeLktw ';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

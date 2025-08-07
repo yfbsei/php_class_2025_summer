@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 requireLogin();
 
 $error = '';
@@ -28,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error = 'Image file is too large. Maximum size is 5MB.';
             } else {
                 // Create uploads directory if it doesn't exist
-                if (!file_exists('uploads')) {
-                    mkdir('uploads', 0777, true);
+                if (!file_exists('../uploads')) {
+                    mkdir('../uploads', 0777, true);
                 }
                 
                 $file_extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
                 $image_name = uniqid() . '.' . $file_extension;
-                $upload_path = 'uploads/' . $image_name;
+                $upload_path = '../uploads/' . $image_name;
                 
                 if (!move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
                     $error = 'Failed to upload image. Please try again.';
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="row justify-content-center">
@@ -127,4 +127,4 @@ include 'includes/header.php';
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

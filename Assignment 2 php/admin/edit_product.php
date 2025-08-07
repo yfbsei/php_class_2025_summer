@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 requireLogin();
 
 $error = '';
@@ -41,18 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error = 'Image file is too large. Maximum size is 5MB.';
             } else {
                 // Delete old image if exists
-                if ($product['image'] && file_exists('uploads/' . $product['image'])) {
-                    unlink('uploads/' . $product['image']);
+                if ($product['image'] && file_exists('../uploads/' . $product['image'])) {
+                    unlink('../uploads/' . $product['image']);
                 }
                 
                 // Create uploads directory if it doesn't exist
-                if (!file_exists('uploads')) {
-                    mkdir('uploads', 0777, true);
+                if (!file_exists('../uploads')) {
+                    mkdir('../uploads', 0777, true);
                 }
                 
                 $file_extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
                 $image_name = uniqid() . '.' . $file_extension;
-                $upload_path = 'uploads/' . $image_name;
+                $upload_path = '../uploads/' . $image_name;
                 
                 if (!move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
                     $error = 'Failed to upload image. Please try again.';
@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Handle image removal
         if (isset($_POST['remove_image']) && $_POST['remove_image'] == '1') {
-            if ($product['image'] && file_exists('uploads/' . $product['image'])) {
-                unlink('uploads/' . $product['image']);
+            if ($product['image'] && file_exists('../uploads/' . $product['image'])) {
+                unlink('../uploads/' . $product['image']);
             }
             $image_name = null;
         }
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_POST['category'] = $product['category'];
 }
 
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="row justify-content-center">
@@ -145,7 +145,7 @@ include 'includes/header.php';
                                 <label for="image" class="form-label">Product Image</label>
                                 <?php if ($product['image']): ?>
                                     <div class="mb-2">
-                                        <img src="uploads/<?php echo htmlspecialchars($product['image']); ?>" 
+                                        <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>" 
                                              alt="Current Image" style="max-width: 150px; max-height: 150px;" class="img-thumbnail">
                                         <div class="form-check mt-2">
                                             <input class="form-check-input" type="checkbox" name="remove_image" value="1" id="remove_image">
@@ -171,4 +171,4 @@ include 'includes/header.php';
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

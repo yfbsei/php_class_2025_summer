@@ -27,11 +27,15 @@
 # Prevent directory browsing
 Options -Indexes
 
+# Redirect root to public folder
+RewriteEngine On
+RewriteRule ^$ public/index.php [L]
+RewriteRule ^index\.php$ public/index.php [L]
+
 # Custom error pages
 ErrorDocument 404 /public/index.php
 ErrorDocument 403 /public/index.php
 
 # Force HTTPS (recommended)
-RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

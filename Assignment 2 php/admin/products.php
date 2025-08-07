@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once '../config.php';
 requireLogin();
 
 // Handle delete request
@@ -13,8 +13,8 @@ if (isset($_GET['delete'])) {
     
     if ($product) {
         // Delete image file if exists
-        if ($product['image'] && file_exists('uploads/' . $product['image'])) {
-            unlink('uploads/' . $product['image']);
+        if ($product['image'] && file_exists('../uploads/' . $product['image'])) {
+            unlink('../uploads/' . $product['image']);
         }
         
         // Delete product from database
@@ -31,7 +31,7 @@ $stmt = $pdo->prepare("SELECT * FROM products WHERE user_id = ? ORDER BY created
 $stmt->execute([$_SESSION['user_id']]);
 $products = $stmt->fetchAll();
 
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="row">
@@ -71,7 +71,7 @@ include 'includes/header.php';
                             <tr>
                                 <td>
                                     <?php if ($product['image']): ?>
-                                        <img src="uploads/<?php echo htmlspecialchars($product['image']); ?>" 
+                                        <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>" 
                                              alt="Product Image" class="product-image">
                                     <?php else: ?>
                                         <div class="bg-light d-flex align-items-center justify-content-center product-image">
@@ -110,5 +110,4 @@ include 'includes/header.php';
     </div>
 <?php endif; ?>
 
-<?php include 'includes/footer.php'; ?>
-                                
+<?php include '../includes/footer.php'; ?>

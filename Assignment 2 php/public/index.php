@@ -1,10 +1,6 @@
 <?php
 require_once '../config.php';
 include '../includes/header.php';
-
-// Fetch some public products to display
-$stmt = $pdo->query("SELECT p.*, u.username FROM products p JOIN users u ON p.user_id = u.id ORDER BY p.created_at DESC LIMIT 6");
-$products = $stmt->fetchAll();
 ?>
 
 <div class="hero-section">
@@ -41,35 +37,14 @@ $products = $stmt->fetchAll();
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <h2 class="text-center mb-4">Recent Products</h2>
-    </div>
-    <?php if ($products): ?>
-        <?php foreach ($products as $product): ?>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <?php if ($product['image']): ?>
-                        <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Product Image">
-                    <?php else: ?>
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <span class="text-muted">No Image</span>
-                        </div>
-                    <?php endif; ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
-                        <p class="card-text"><?php echo htmlspecialchars(substr($product['description'], 0, 100)) . '...'; ?></p>
-                        <p class="card-text">
-                            <small class="text-muted">By <?php echo htmlspecialchars($product['username']); ?></small>
-                        </p>
-                        <h6 class="text-primary">$<?php echo number_format($product['price'], 2); ?></h6>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <div class="col-12">
-            <p class="text-center text-muted">No products available yet.</p>
+<div class="text-center">
+    <h2>🎉 Your CRUD Application is Working!</h2>
+    <p class="text-muted">Database connection successful. Ready to start managing your content.</p>
+    
+    <?php if (!isLoggedIn()): ?>
+        <div class="mt-4">
+            <a href="login.php" class="btn btn-primary me-2">Login</a>
+            <a href="register.php" class="btn btn-outline-primary">Sign Up</a>
         </div>
     <?php endif; ?>
 </div>
